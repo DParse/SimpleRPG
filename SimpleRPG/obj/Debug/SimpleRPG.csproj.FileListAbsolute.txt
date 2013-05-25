@@ -1,0 +1,6 @@
+c:\users\devon parsons\documents\visual studio 2012\Projects\SimpleRPG\SimpleRPG\bin\Debug\SimpleRPG.exe.config
+c:\users\devon parsons\documents\visual studio 2012\Projects\SimpleRPG\SimpleRPG\bin\Debug\SimpleRPG.exe
+c:\users\devon parsons\documents\visual studio 2012\Projects\SimpleRPG\SimpleRPG\bin\Debug\SimpleRPG.pdb
+c:\users\devon parsons\documents\visual studio 2012\Projects\SimpleRPG\SimpleRPG\obj\Debug\SimpleRPG.csprojResolveAssemblyReference.cache
+c:\users\devon parsons\documents\visual studio 2012\Projects\SimpleRPG\SimpleRPG\obj\Debug\SimpleRPG.exe
+c:\users\devon parsons\documents\visual studio 2012\Projects\SimpleRPG\SimpleRPG\obj\Debug\SimpleRPG.pdb
