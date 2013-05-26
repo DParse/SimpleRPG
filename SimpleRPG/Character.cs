@@ -19,6 +19,7 @@ namespace SimpleRPG
         double exp;              //The current progress towards the next level
         int level;               //The number of times the player has levelled up
         double reqExp;           //The required experience to reach the next level
+        Session thisSession;     //The current game session
 
         /**
          * Constuctor: Character
@@ -38,8 +39,11 @@ namespace SimpleRPG
         /**
          * Sets appropriate values for a new character's
          * health, damage and other stats.
+         * 
+         * @param Session nsession
+         *      The current game session
          */
-        public void initialize()
+        public void initialize(Session nsession)
         {
             level = 1;
             maxHealth = 40;
@@ -48,7 +52,7 @@ namespace SimpleRPG
             money = 100;
             exp = 0;
             reqExp = 45;
-
+            thisSession = nsession;
         }
 
         /**
@@ -91,78 +95,38 @@ namespace SimpleRPG
          */ 
         public void getCommand()
         {
-            string[] commands = new string[] { "\n[A]ttack ", "\n[M]agic ", "\n[I]tems ", "\n[F]lee " };
-            string[] commandsShortcut = { "a", "m", "i", "f" }; //NOTE: The length of this array must match the length of commands
-            int arrowLoc = 0;
-            bool resolved = false;
-            do
+            string[] commands = new string[] { "[A]ttack ", "\n[M]agic ", "\n[I]tems ", "\n[F]lee ", "\n[D]isplay monster " };
+            string[] commandsShortcut = { "a", "m", "i", "f", "d" }; //NOTE: The length of this array must match the length of commands
+
+            Console.Clear();
+            thisSession.displayMonster();
+
+            //make command choice
+            int choice = thisSession.choice(commands, commandsShortcut);
+            Console.Clear();
+            switch (choice)
             {
-                Console.Clear();
-                //Monster.displayMonster();
-
-                //print the commands and current arrow
-                for (int i = 0; i <= arrowLoc; i++)
-                {
-                    Console.Write(commands[i]);
-                }
-                Console.Write("\x2190"); //left triangle 25C4 or 25C0, 25C0 not working
-                for (int k = arrowLoc + 1; k < commands.Length; k++)
-                {
-                    Console.Write(commands[k]);
-                }
-
-                //get the next command
-                ConsoleKeyInfo pressed;
-                pressed = Console.ReadKey(false);
-                String pressedString = pressed.Key.ToString();
-                if (pressedString.Equals("Enter", StringComparison.Ordinal))
-                {
-                    pressedString = commandsShortcut[arrowLoc];
-                }
-                Console.Clear();
-
-                //execute the command
-                switch (pressedString)
-                {
-                    case "a":
-                    case "A":
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.WriteLine("You attack!");
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        resolved = true;
-                        break;
-                    case "m":
-                    case "M":
-                        Console.WriteLine("Magic!");
-                        //p1.listMagic
-                        break;
-                    case "i":
-                    case "I":
-                        Console.WriteLine("Items!");
-                        //p1.listItems
-                        break;
-                    case "f":
-                    case "F":
-                        Console.WriteLine("Flee");
-                        break;
-                    case "DownArrow":
-                        if (arrowLoc < 3)//TODO get rid of magic numbers
-                        {
-                            arrowLoc += 1;
-                        }
-                        break;
-                    case "UpArrow":
-                        if (arrowLoc > 0)
-                        {
-                            arrowLoc -= 1;
-                        }
-                        break;
-
-                    default:
-                        Console.WriteLine("Invalid");
-                        break;
-                }
-            } while (!resolved);
+                case 0:
+                    Console.WriteLine("Attack!");
+                    break;
+                case 1:
+                    Console.WriteLine("Magic!");
+                    break;
+                case 2:
+                    Console.WriteLine("Item!");
+                    break;
+                case 3:
+                    Console.WriteLine("Flee!");
+                    break;
+                case 4:
+                    thisSession.displayMonster();
+                    break;
+                case -1:
+                default:
+                    Console.WriteLine("Error");
+                    break;
+            }
+   
             Console.ReadLine();
         }
         /**

@@ -22,16 +22,22 @@ namespace SimpleRPG
             Console.Write("Please input your character's name! ");
             String name = Console.ReadLine();
             Character p1 = new Character(name);
-            p1.initialize();
+            p1.initialize(thisSession);
             p1.writeStats();
 
 
             //the game loop: encounter a monster, fight, get rewards, go to town
+            //this belongs in session
             while (playing)
             {
                 Console.Clear();
-                curMonster = thisSession.generateMonster(p1);
+                thisSession.generateMonster(p1);
                 p1.getCommand();
+
+                if (!thisSession.continuePlaying())
+                {
+                    playing = false;
+                }
             }
 
         }//end main

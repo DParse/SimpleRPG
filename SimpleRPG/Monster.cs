@@ -44,5 +44,13 @@ namespace SimpleRPG
             health = maxHealth;
         }
 
+
+        public void display()
+        {
+            Console.Clear();
+            Console.WriteLine("The monster has {0} of {1} health and deals {2} damage", health, maxHealth, damage);
+            Console.Read();
+        }
+
     }
 }
